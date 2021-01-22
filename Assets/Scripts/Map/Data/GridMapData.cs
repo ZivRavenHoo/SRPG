@@ -8,8 +8,6 @@ public class GridMapData
     public List<GridPosition> enemyBrithPosition = new List<GridPosition>();
     public List<GridPosition> ourBrithPosition = new List<GridPosition>();
 
-    //public Size Size { get { return size; } }
-
     public GridMapData(Size size)
     {
         this.size = size;

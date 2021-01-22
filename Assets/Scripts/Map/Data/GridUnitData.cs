@@ -8,10 +8,8 @@ public enum GridType
 
 public class GridUnitData
 {
-    private GridPosition position;
-    private GridType gridType = GridType.Normal;
-
-    public GridPosition Position { get { return position; } }
+    public GridPosition position;
+    public GridType gridType = GridType.Normal;
 
     public GridUnitData(GridPosition position)
     {

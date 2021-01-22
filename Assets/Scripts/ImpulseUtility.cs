@@ -35,11 +35,11 @@ namespace ImpulseUtility
 
     public static class RendererUtility
     {
-        public static Vector3 GridPositionToLocalPositionl(GridPosition position)
+        public static Vector3 GridPositionToLocalPosition(GridPosition position,float side)
         {
-            int row = position.row;
-            int column = position.column;
-            return new Vector3(column, row, 0);
+            float x = (position.column - 0.5f) * side;
+            float y = (position.row - 0.5f) * side;
+            return new Vector3(x, y, 0);
         }
 
         public static GridPosition GetMouseGridPosition(Camera camera, Transform root)
