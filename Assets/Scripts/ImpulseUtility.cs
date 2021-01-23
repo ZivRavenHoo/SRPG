@@ -15,6 +15,11 @@ namespace ImpulseUtility
             this.width = width;
             this.height = height;
         }
+
+        public float GetResolution()
+        {
+            return (float)width / height;
+        }
     }
     public struct GridPosition
     {
@@ -35,10 +40,17 @@ namespace ImpulseUtility
 
     public static class RendererUtility
     {
+        public static float GetAdaptScreenNeedScale(Rect screen,Size map)
+        {
+            float width = screen.width / map.width;
+            float height = screen.height / map.height;
+            return Mathf.Min(width, height);
+        }
+
         public static Vector3 GridPositionToLocalPosition(GridPosition position,float side)
         {
-            float x = (position.column - 0.5f) * side;
-            float y = (position.row - 0.5f) * side;
+            float x = (position.column + 0.5f) * side;
+            float y = (position.row + 0.5f) * side;
             return new Vector3(x, y, 0);
         }
 

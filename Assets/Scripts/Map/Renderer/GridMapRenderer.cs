@@ -8,6 +8,12 @@ public class GridMapRenderer : MonoBehaviour
 
     private GridMapData currentMapData;
     private GridUnitRenderer[,] gridUnitRenderers;
+    private RectTransform rectTransform;
+
+    private void Start()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
 
     public void Bind(GridMapData gridMapData)
     {
@@ -29,6 +35,8 @@ public class GridMapRenderer : MonoBehaviour
                 gridUnitRenderers[row, column] = CreatGridUnitRenderer(position);
             }
         }
+
+        AdaptCanvas();
     }
 
     private GridUnitRenderer CreatGridUnitRenderer(GridPosition position)
@@ -37,6 +45,19 @@ public class GridMapRenderer : MonoBehaviour
         gridUnit.GridUnitData = currentMapData.GetGridUnitData(position);
         gridUnit.name = string.Format("GridUnit_{0}", position.ToString());
         return gridUnit;
+    }
+
+    private void AdaptCanvas()
+    {
+        transform.localScale *= GetAdaptCanvasNeedScale();
+    }
+
+    private float GetAdaptCanvasNeedScale()
+    {
+
+        float scale = RendererUtility.GetAdaptScreenNeedScale(rectTransform.rect, currentMapData.size);
+        scale /= GameConstant.GridUnitSideLength;
+        return scale;
     }
 
     private GridUnitRenderer GetGridUnitRenderer(GridPosition position)

@@ -3,16 +3,20 @@ using UnityEngine;
 
 public class MapEditor : MonoBehaviour
 {
-    [SerializeField] GridMapRenderer gridMapPrefab;
+    [SerializeField] private GridMapRenderer gridMap;
+    [SerializeField] private RectTransform editorPanel;
 
     private Canvas canvas;
+    private RectTransform canvasRect;
+
+    private Size size = new Size(16, 9);
 
     private void Start()
     {
         canvas = GetComponentInChildren<Canvas>();
+        canvasRect = canvas.GetComponent<RectTransform>();
 
-        GridMapData gridMapData = new GridMapData(new Size(18, 10));
-        GridMapRenderer gridMap = Instantiate(gridMapPrefab, canvas.transform);
+        GridMapData gridMapData = new GridMapData(size);
         gridMap.Bind(gridMapData);
     }
 }
