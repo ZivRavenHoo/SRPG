@@ -47,31 +47,36 @@ namespace ImpulseUtility
             return Mathf.Min(width, height);
         }
 
-        public static Vector3 GridPositionToLocalPosition(GridPosition position,float side)
+        public static GridPosition GetMouseGridPosition(Camera camera, Transform root, float side)
         {
-            float x = (position.column + 0.5f) * side;
-            float y = (position.row + 0.5f) * side;
-            return new Vector3(x, y, 0);
+            Vector3 localPosition = GetMouseDownLocalPosition(camera, root);
+            return LocalPositionToGridPosition(localPosition, side);
         }
 
-        public static GridPosition GetMouseGridPosition(Camera camera, Transform root)
+        public static Vector3 GetMouseDownLocalPosition(Camera camera, Transform root)
         {
             Vector3 worldPosition = GetMouseDownWorldPosition(camera);
-            Vector3 localPosition = root.InverseTransformPoint(worldPosition);
-            return LocalPositionToGridPosition(localPosition);
+            return root.InverseTransformPoint(worldPosition);
         }
 
-        private static Vector3 GetMouseDownWorldPosition(Camera camera)
+        public static Vector3 GetMouseDownWorldPosition(Camera camera)
         {
             return camera.ScreenToWorldPoint(Input.mousePosition);
         }
 
-        private static GridPosition LocalPositionToGridPosition(Vector3 localPosition)
+        public static GridPosition LocalPositionToGridPosition(Vector3 localPosition, float side)
         {
             GridPosition position;
-            position.column = (int)localPosition.x;
-            position.row = (int)localPosition.y;
+            position.column = (int)(localPosition.x / side);
+            position.row = (int)(localPosition.y / side);
             return position;
+        }
+
+        public static Vector3 GridPositionToLocalPosition(GridPosition position, float side)
+        {
+            float x = (position.column + 0.5f) * side;
+            float y = (position.row + 0.5f) * side;
+            return new Vector3(x, y, 0);
         }
     }
 }

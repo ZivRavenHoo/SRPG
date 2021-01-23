@@ -6,7 +6,9 @@ using ImpulseUtility;
 public enum EditorMode
 {
     PushObstacle,
-    Eraser
+    Eraser,
+    PushEnemy,
+    PushUs
 }
 
 public class MapEditor : MonoBehaviour
@@ -30,18 +32,44 @@ public class MapEditor : MonoBehaviour
         gridMap.Bind(gridMapData);
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            switch (EditorMode)
+            {
+                case EditorMode.PushEnemy : PushEnemyBrithPosition(new Vector3()); break;
+                case EditorMode.PushUs : PushUsBrithPosition(new Vector3()); break;
+            }
+        }
+    }
+
     private void AddTogglesListener()
     {
         foreach(Toggle toggle in toggles)
         {
             toggle.onValueChanged.AddListener((isOn) => {
                 string mode = toggle.name;
-                if (mode == "Obstacle")
+                if (mode == "PushObstacle")
                     EditorMode = EditorMode.PushObstacle;
-                else
+                else if (mode == "Eraser")
                     EditorMode = EditorMode.Eraser;
+                else if (mode == "PushEnemy")
+                    EditorMode = EditorMode.PushEnemy;
+                else if (mode == "PushUs")
+                    EditorMode = EditorMode.PushUs;
                 Debug.Log(EditorMode);
             });
         }
+    }
+
+    private void PushEnemyBrithPosition(Vector3 position)
+    {
+
+    }
+
+    private void PushUsBrithPosition(Vector3 position)
+    {
+
     }
 }

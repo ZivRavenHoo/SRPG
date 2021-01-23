@@ -6,7 +6,7 @@ public class GridMapData
     public Size size;
     public GridUnitData[,] gridUnitDatas;
     public List<GridPosition> enemyBrithPosition = new List<GridPosition>();
-    public List<GridPosition> ourBrithPosition = new List<GridPosition>();
+    public List<GridPosition> usBrithPosition = new List<GridPosition>();
 
     public GridMapData(Size size)
     {

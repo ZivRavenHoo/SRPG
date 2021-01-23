@@ -16,7 +16,6 @@ public class GridMapRenderer : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         gridUnitRoot = transform.Find("GridUnitRoot");
         gridUnitPrefab = transform.Find("GridUnitPrefab").GetComponent<GridUnitRenderer>();
-
     }
 
     public void Bind(GridMapData gridMapData)
