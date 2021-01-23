@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Image))]
-public class GridUnitRenderer : MonoBehaviour, IPointerDownHandler
+public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler
 {
     private GridUnitData gridUnitData;
 
@@ -25,9 +25,13 @@ public class GridUnitRenderer : MonoBehaviour, IPointerDownHandler
         image = GetComponent<Image>();
     }
 
-    public void OnPointerDown(PointerEventData data)
+    public void OnPointerEnter (PointerEventData data)
     {
-        SetType(GridType.Obstacle);
+        switch (MapEditor.EditorMode)
+        {
+            case EditorMode.PushObstacle : SetType(GridType.Obstacle); break;
+            case EditorMode.Eraser : SetType(GridType.Normal); break;
+        }
     }
 
     public void Refresh()
@@ -56,6 +60,8 @@ public class GridUnitRenderer : MonoBehaviour, IPointerDownHandler
 
     private void SetType(GridType type)
     {
+        if (gridUnitData.gridType == type)
+            return;
         gridUnitData.gridType = type;
         RefreshGridType();
     }
