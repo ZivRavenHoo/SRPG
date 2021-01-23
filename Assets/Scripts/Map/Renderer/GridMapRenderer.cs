@@ -3,16 +3,20 @@ using ImpulseUtility;
 
 public class GridMapRenderer : MonoBehaviour
 {
-    [SerializeField] private Transform gridUnitRoot;
-    [SerializeField] private GridUnitRenderer gridUnitPrefab;
+    private Transform gridUnitRoot;
+    private GridUnitRenderer gridUnitPrefab = null;
+    private RectTransform rectTransform;
 
     private GridMapData currentMapData;
     private GridUnitRenderer[,] gridUnitRenderers;
-    private RectTransform rectTransform;
+
 
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
+        gridUnitRoot = transform.Find("GridUnitRoot");
+        gridUnitPrefab = transform.Find("GridUnitPrefab").GetComponent<GridUnitRenderer>();
+
     }
 
     public void Bind(GridMapData gridMapData)
@@ -44,6 +48,7 @@ public class GridMapRenderer : MonoBehaviour
         GridUnitRenderer gridUnit = Instantiate(gridUnitPrefab,gridUnitRoot);
         gridUnit.GridUnitData = currentMapData.GetGridUnitData(position);
         gridUnit.name = string.Format("GridUnit_{0}", position.ToString());
+        gridUnit.gameObject.SetActive(true);
         return gridUnit;
     }
 
@@ -54,7 +59,6 @@ public class GridMapRenderer : MonoBehaviour
 
     private float GetAdaptCanvasNeedScale()
     {
-
         float scale = RendererUtility.GetAdaptScreenNeedScale(rectTransform.rect, currentMapData.size);
         scale /= GameConstant.GridUnitSideLength;
         return scale;
