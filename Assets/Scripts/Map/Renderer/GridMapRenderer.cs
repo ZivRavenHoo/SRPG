@@ -5,12 +5,8 @@ using ImpulseUtility;
 public class GridMapRenderer : MonoBehaviour
 {
 
-    private Transform enemyBrithPrefab;
-    private Transform usBrithPrefab;
     private GridUnitRenderer gridUnitPrefab;
 
-    private Transform enemyBrithRoot;
-    private Transform usBrithRoot;
     private Transform gridUnitRoot;
 
     private RectTransform rectTransform;
@@ -22,28 +18,10 @@ public class GridMapRenderer : MonoBehaviour
     {
 
         gridUnitRoot = transform.Find("GridUnitRoot");
-        enemyBrithRoot = transform.Find("EnemyBrithRoot");
-        usBrithRoot = transform.Find("UsBrithRoot");
 
         gridUnitPrefab = transform.Find("GridUnitPrefab").GetComponent<GridUnitRenderer>();
-        enemyBrithPrefab = transform.Find("EnemyBrithPrefab");
-        usBrithPrefab = transform.Find("UsBrithPrefab");
 
         rectTransform = GetComponent<RectTransform>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (MapEditor.EditorMode == EditorMode.PushObstacle || MapEditor.EditorMode == EditorMode.Eraser)
-                return;
-            switch (MapEditor.EditorMode)
-            {
-                case EditorMode.PushEnemy: PushEnemyBrithPosition(); break;
-                case EditorMode.PushUs: PushUsBrithPosition(); break;
-            }
-        }
     }
 
     public void Bind(GridMapData gridMapData)
@@ -94,19 +72,5 @@ public class GridMapRenderer : MonoBehaviour
     private GridUnitRenderer GetGridUnitRenderer(GridPosition position)
     {
         return gridUnitRenderers[position.row, position.column];
-    }
-
-    private void PushEnemyBrithPosition()
-    {
-        GameObject enemy = Instantiate(enemyBrithPrefab.gameObject, enemyBrithRoot);
-        enemy.transform.localPosition = RendererUtility.LocalPositionRangeGrid(Camera.main, gridUnitRoot, GameConstant.GridUnitSideLength);
-        enemy.gameObject.SetActive(true);
-    }
-
-    private void PushUsBrithPosition()
-    {
-        GameObject us = Instantiate(usBrithPrefab.gameObject, usBrithRoot);
-        us.transform.localPosition = RendererUtility.LocalPositionRangeGrid(Camera.main, gridUnitRoot, GameConstant.GridUnitSideLength);
-        us.gameObject.SetActive(true);
     }
 }

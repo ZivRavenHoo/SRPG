@@ -3,6 +3,8 @@
 public enum GridType
 {
     Normal,
+    EnemyBirth,
+    UsBirth,
     Obstacle
 }
 
