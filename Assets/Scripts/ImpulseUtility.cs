@@ -47,19 +47,25 @@ namespace ImpulseUtility
             return Mathf.Min(width, height);
         }
 
+        public static Vector3 LocalPositionRangeGrid(Camera camera,Transform root,float side)
+        {
+            GridPosition grid = GetMouseGridPosition(camera, root, side);
+            return GridPositionToLocalPosition(grid, side);
+        }
+
         public static GridPosition GetMouseGridPosition(Camera camera, Transform root, float side)
         {
             Vector3 localPosition = GetMouseDownLocalPosition(camera, root);
             return LocalPositionToGridPosition(localPosition, side);
         }
 
-        public static Vector3 GetMouseDownLocalPosition(Camera camera, Transform root)
+        public static Vector2 GetMouseDownLocalPosition(Camera camera, Transform root)
         {
             Vector3 worldPosition = GetMouseDownWorldPosition(camera);
             return root.InverseTransformPoint(worldPosition);
         }
 
-        public static Vector3 GetMouseDownWorldPosition(Camera camera)
+        public static Vector2 GetMouseDownWorldPosition(Camera camera)
         {
             return camera.ScreenToWorldPoint(Input.mousePosition);
         }

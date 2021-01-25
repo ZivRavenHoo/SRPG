@@ -27,6 +27,8 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter (PointerEventData data)
     {
+        if (MapEditor.isPress == false)
+            return;
         switch (MapEditor.EditorMode)
         {
             case EditorMode.PushObstacle : SetType(GridType.Obstacle); break;

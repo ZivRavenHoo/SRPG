@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
 using ImpulseUtility;
@@ -11,7 +12,7 @@ public enum EditorMode
     PushUs
 }
 
-public class MapEditor : MonoBehaviour
+public class MapEditor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private GridMapRenderer gridMap = null;
     [SerializeField] private RectTransform editorPanel;
@@ -30,18 +31,6 @@ public class MapEditor : MonoBehaviour
 
         GridMapData gridMapData = new GridMapData(size);
         gridMap.Bind(gridMapData);
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0)) 
-        {
-            switch (EditorMode)
-            {
-                case EditorMode.PushEnemy : PushEnemyBrithPosition(new Vector3()); break;
-                case EditorMode.PushUs : PushUsBrithPosition(new Vector3()); break;
-            }
-        }
     }
 
     private void AddTogglesListener()
@@ -63,13 +52,14 @@ public class MapEditor : MonoBehaviour
         }
     }
 
-    private void PushEnemyBrithPosition(Vector3 position)
+    public static bool isPress = false;
+    public void OnPointerDown(PointerEventData data)
     {
-
+        isPress = true;
     }
 
-    private void PushUsBrithPosition(Vector3 position)
+    public void OnPointerUp(PointerEventData data)
     {
-
+        isPress = false;
     }
 }
