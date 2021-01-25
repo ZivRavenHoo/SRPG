@@ -5,7 +5,7 @@ using UnityEngine;
 using ImpulseUtility;
 using LitJson;
 using System.IO;
-using System.Text;
+using UnityEditor;
 
 public enum EditorMode
 {
@@ -72,7 +72,16 @@ public class MapEditor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void SaveMap()
     {
-        
+        string json = JsonMapper.ToJson(currentMapData);
+        string path = Application.dataPath + @"/GameResources/LevelMap/mapdata.json";
+
+        FileInfo file = new FileInfo(path);
+        StreamWriter sw = file.CreateText();
+        sw.Write(json);
+        sw.Close();
+        sw.Dispose();
+
+        AssetDatabase.Refresh();
         Debug.Log("地图保存成功!");
     }
 }
