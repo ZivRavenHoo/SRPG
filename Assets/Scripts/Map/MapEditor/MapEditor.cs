@@ -72,10 +72,7 @@ public class MapEditor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void SaveMap()
     {
-        string json = JsonMapper.ToJson(currentMapData);
-        string path = Application.streamingAssetsPath + "/mapdata.json";
-        File.Create(path);
-        File.WriteAllText(path, json);
+        
         Debug.Log("地图保存成功!");
     }
 }
