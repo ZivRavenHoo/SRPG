@@ -28,6 +28,11 @@ namespace ImpulseUtility
                 return false;
             return true;
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0}_{1}", width, height);
+        }
     }
     public struct GridPosition
     {

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
-using LitJson;
 using UnityEditor;
+using Newtonsoft.Json;
 
 public static class FileOperation
 {
     public static void ObjectToJsonFile(string path,Object data)
     {
-        string json = JsonMapper.ToJson(data);
+        string json = JsonConvert.SerializeObject(data);
         FileInfo file = new FileInfo(path);
         StreamWriter sw = file.CreateText();
         sw.Write(json);
@@ -20,7 +20,7 @@ public static class FileOperation
     {
         StreamReader sr = new StreamReader(path);
         string json = sr.ReadLine();
-        return JsonMapper.ToObject<T>(json);
+        return JsonConvert.DeserializeObject<T>(json);
     }
 
     public static string GetMapDataPath(string mapName)

@@ -11,6 +11,6 @@ public class BattleManager : MonoBehaviour
 
     private void CreatMap()
     {
-        Debug.Log(MapFactory.Instance.CreatMapDataByJsonFile("mapdata"));
+        Debug.Log(MapFactory.Instance.CreatMapDataByJsonFile("mapdata").size.ToString());
     }
 }
