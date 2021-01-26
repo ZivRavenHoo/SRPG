@@ -27,7 +27,7 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter (PointerEventData data)
     {
-        if (MapEditor.isPress == false)
+        if (MapEditor.isPress == false || MapEditor.EditorMode == EditorMode.None)
             return;
         switch (MapEditor.EditorMode)
         {

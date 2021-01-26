@@ -3,12 +3,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
 using ImpulseUtility;
-using LitJson;
-using System.IO;
-using UnityEditor;
 
 public enum EditorMode
 {
+    None,
     PushObstacle,
     Eraser,
     PushEnemy,
@@ -17,11 +15,9 @@ public enum EditorMode
 
 public class MapEditor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] private GridMapRenderer gridMap = null;
-    [SerializeField] private RectTransform editorPanel;
+    private GridMapRenderer gridMap;
     private Toggle[] toggles;
     private Button saveButton;
-    private Canvas canvas;
 
     public static EditorMode EditorMode = EditorMode.PushObstacle;
 
@@ -30,14 +26,14 @@ public class MapEditor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void Start()
     {
-        canvas = GetComponentInChildren<Canvas>();
+        gridMap = GetComponentInChildren<GridMapRenderer>();
         toggles = GetComponentsInChildren<Toggle>();
         saveButton = GetComponentInChildren<Button>();
 
         AddTogglesListener();
         saveButton.onClick.AddListener(SaveMap);
 
-        currentMapData = new GridMapData(size);
+        currentMapData = MapFactory.Instance.CreatGridMapData(size);
         gridMap.Bind(currentMapData);
     }
 
@@ -72,16 +68,8 @@ public class MapEditor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void SaveMap()
     {
-        string json = JsonMapper.ToJson(currentMapData);
-        string path = Application.dataPath + @"/GameResources/LevelMap/mapdata.json";
-
-        FileInfo file = new FileInfo(path);
-        StreamWriter sw = file.CreateText();
-        sw.Write(json);
-        sw.Close();
-        sw.Dispose();
-
-        AssetDatabase.Refresh();
+        string path = FileOperation.GetMapDataPath("mapdata");
+        FileOperation.ObjectToJsonFile(path, currentMapData);
         Debug.Log("地图保存成功!");
     }
 }

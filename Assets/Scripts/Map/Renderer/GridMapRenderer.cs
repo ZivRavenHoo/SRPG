@@ -59,7 +59,7 @@ public class GridMapRenderer : MonoBehaviour
 
     private void AdaptCanvas()
     {
-        transform.localScale *= GetAdaptCanvasNeedScale();
+        gridUnitRoot.transform.localScale *= GetAdaptCanvasNeedScale();
     }
 
     private float GetAdaptCanvasNeedScale()
