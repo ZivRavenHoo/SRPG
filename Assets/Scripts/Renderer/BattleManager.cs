@@ -4,10 +4,11 @@ using ImpulseUtility;
 
 public class BattleManager : MonoBehaviour
 {
+    private BattleData battleData;
+
     public static Transform gridEffect;
 
     private GridMapRenderer gridMap;
-    private GridMapData currentMapData;
     private Transform combatantRoot;
     private RectTransform rectTransform;
     private CombatantRenderer combatantPrefab;
@@ -35,8 +36,8 @@ public class BattleManager : MonoBehaviour
 
     private void CreatMap()
     {
-        currentMapData = MapFactory.Instance.CreatMapDataByJsonFile("mapdata");
-        gridMap.Bind(currentMapData);
+        battleData = BattleDataFactory.Instance.GetBattleData();
+        gridMap.Bind(battleData.mapData);
     }
 
     private void CreatCombatant()
@@ -45,7 +46,7 @@ public class BattleManager : MonoBehaviour
         CombatantRenderer combatant = Instantiate(combatantPrefab,combatantRoot);
         combatant.Data = data;
         combatant.gameObject.SetActive(true);
-        combatant.Position = currentMapData.size.GetRangePosition();
+        combatant.Position = gridMap.currentMapData.size.GetRangePosition();
 
         usTeam.Add(combatant);
     }
@@ -57,7 +58,7 @@ public class BattleManager : MonoBehaviour
 
     private float GetAdaptCanvasNeedScale()
     {
-        float scale = RendererUtility.GetAdaptScreenNeedScale(rectTransform.rect, currentMapData.size);
+        float scale = RendererUtility.GetAdaptScreenNeedScale(rectTransform.rect, gridMap.currentMapData.size);
         scale /= GameConstant.GridUnitSideLength;
         return scale;
     }

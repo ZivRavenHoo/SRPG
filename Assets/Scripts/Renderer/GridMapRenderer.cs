@@ -8,8 +8,18 @@ public class GridMapRenderer : MonoBehaviour
     private GridUnitRenderer gridUnitPrefab;
     private Transform gridUnitRoot;
 
-    private GridMapData currentMapData;
+    public GridMapData currentMapData;
     private GridUnitRenderer[,] gridUnitRenderers;
+
+    public Size MapSize
+    {
+        get
+        {
+            if (currentMapData == null)
+                return null;
+            return currentMapData.size;
+        }
+    }
 
     private void Awake()
     {
@@ -27,7 +37,7 @@ public class GridMapRenderer : MonoBehaviour
     {
         Size size = currentMapData.size;
         gridUnitRenderers = new GridUnitRenderer[size.height, size.width];
-        GridPosition position;
+        GridPosition position = new GridPosition();
         for(int row = 0; row < size.height; ++row)
         {
             for(int column = 0; column < size.width; ++column)

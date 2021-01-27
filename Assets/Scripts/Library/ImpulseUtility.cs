@@ -5,10 +5,12 @@ using UnityEngine;
 
 namespace ImpulseUtility
 {
-    public struct Size
+    public class Size
     {
-        public int width;
-        public int height;
+        public int width = 0;
+        public int height = 0;
+
+        public Size() { }
 
         public Size(int width, int height)
         {
@@ -42,10 +44,12 @@ namespace ImpulseUtility
             return position;
         }
     }
-    public struct GridPosition
+    public class GridPosition
     {
-        public int row;
-        public int column;
+        public int row = 0;
+        public int column = 0;
+
+        public GridPosition() { }
 
         public GridPosition(int row, int column)
         {
@@ -93,9 +97,11 @@ namespace ImpulseUtility
 
         public static GridPosition LocalPositionToGridPosition(Vector3 localPosition, float side)
         {
-            GridPosition position;
-            position.column = (int)(localPosition.x / side);
-            position.row = (int)(localPosition.y / side);
+            GridPosition position = new GridPosition
+            {
+                column = (int)(localPosition.x / side),
+                row = (int)(localPosition.y / side)
+            };
             return position;
         }
 

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class CombatantRenderer : MonoBehaviour
 {
     private CombatantData data;
-    private GridPosition position;
+    private GridPosition position = new GridPosition();
 
     public CombatantData Data
     {
