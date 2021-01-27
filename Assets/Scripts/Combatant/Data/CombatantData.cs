@@ -1,6 +1,6 @@
-﻿
+﻿using ImpulseUtility;
 
-public class BattleUnitData
+public class CombatantData
 {
     private bool isEnemy = false;
     private CombatantProtery protery = new CombatantProtery();

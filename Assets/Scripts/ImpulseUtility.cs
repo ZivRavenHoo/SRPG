@@ -33,6 +33,14 @@ namespace ImpulseUtility
         {
             return string.Format("{0}_{1}", width, height);
         }
+
+        public GridPosition GetRangePosition()
+        {
+            GridPosition position = new GridPosition();
+            position.row = Random.Range(0, height - 1);
+            position.column = Random.Range(0, width - 1);
+            return position;
+        }
     }
     public struct GridPosition
     {
@@ -91,11 +99,11 @@ namespace ImpulseUtility
             return position;
         }
 
-        public static Vector3 GridPositionToLocalPosition(GridPosition position, float side)
+        public static Vector2 GridPositionToLocalPosition(GridPosition position, float side)
         {
             float x = (position.column + 0.5f) * side;
             float y = (position.row + 0.5f) * side;
-            return new Vector3(x, y, 0);
+            return new Vector2(x, y);
         }
     }
 }

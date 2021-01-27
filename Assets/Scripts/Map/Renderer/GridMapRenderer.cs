@@ -6,22 +6,15 @@ public class GridMapRenderer : MonoBehaviour
 {
 
     private GridUnitRenderer gridUnitPrefab;
-
     private Transform gridUnitRoot;
-
-    private RectTransform rectTransform;
 
     private GridMapData currentMapData;
     private GridUnitRenderer[,] gridUnitRenderers;
 
-    private void Start()
+    private void Awake()
     {
-
         gridUnitRoot = transform.Find("GridUnitRoot");
-
-        gridUnitPrefab = transform.Find("GridUnitPrefab").GetComponent<GridUnitRenderer>();
-
-        rectTransform = GetComponent<RectTransform>();
+        gridUnitPrefab = gridUnitRoot.Find("GridUnitPrefab").GetComponent<GridUnitRenderer>();
     }
 
     public void Bind(GridMapData gridMapData)
@@ -44,29 +37,15 @@ public class GridMapRenderer : MonoBehaviour
                 gridUnitRenderers[row, column] = CreatGridUnitRenderer(position);
             }
         }
-
-        AdaptCanvas();
     }
 
     private GridUnitRenderer CreatGridUnitRenderer(GridPosition position)
     {
-        GridUnitRenderer gridUnit = Instantiate(gridUnitPrefab,gridUnitRoot);
+        GridUnitRenderer gridUnit = Instantiate(gridUnitPrefab, gridUnitRoot);
         gridUnit.GridUnitData = currentMapData.GetGridUnitData(position);
         gridUnit.name = string.Format("GridUnit_{0}", position.ToString());
         gridUnit.gameObject.SetActive(true);
         return gridUnit;
-    }
-
-    private void AdaptCanvas()
-    {
-        gridUnitRoot.transform.localScale *= GetAdaptCanvasNeedScale();
-    }
-
-    private float GetAdaptCanvasNeedScale()
-    {
-        float scale = RendererUtility.GetAdaptScreenNeedScale(rectTransform.rect, currentMapData.size);
-        scale /= GameConstant.GridUnitSideLength;
-        return scale;
     }
 
     private GridUnitRenderer GetGridUnitRenderer(GridPosition position)

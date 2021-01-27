@@ -6,16 +6,15 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Image))]
 public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler
 {
-    private GridUnitData gridUnitData;
-
+    private GridUnitData data;
     private Image image;
 
     public GridUnitData GridUnitData
     {
-        get { return gridUnitData; }
+        get { return data; }
         set
         {
-            gridUnitData = value;
+            data = value;
             Refresh();
         }
     }
@@ -46,13 +45,13 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler
 
     private void RefreshLocalPosition()
     {
-        transform.localPosition = RendererUtility.GridPositionToLocalPosition(gridUnitData.position, GameConstant.GridUnitSideLength);
+        transform.localPosition = RendererUtility.GridPositionToLocalPosition(data.position, GameConstant.GridUnitSideLength);
     }
 
     private void RefreshGridType()
     {
         Color color = Color.white;
-        switch (gridUnitData.gridType)
+        switch (data.gridType)
         {
             case GridType.Normal : color = Color.white; break;
             case GridType.EnemyBirth : color = Color.red;break;
@@ -66,9 +65,9 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler
 
     private void SetType(GridType type)
     {
-        if (gridUnitData.gridType == type)
+        if (data.gridType == type)
             return;
-        gridUnitData.gridType = type;
+        data.gridType = type;
         RefreshGridType();
     }
 }
