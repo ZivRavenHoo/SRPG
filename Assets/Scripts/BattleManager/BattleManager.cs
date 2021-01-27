@@ -4,13 +4,19 @@ using System.IO;
 
 public class BattleManager : MonoBehaviour
 {
+    private GridMapData currentMapData;
+    private GridMapRenderer gridMap;
+
     private void Start()
     {
+        gridMap = GetComponentInChildren<GridMapRenderer>();
         CreatMap();
     }
 
     private void CreatMap()
     {
-        Debug.Log(MapFactory.Instance.CreatMapDataByJsonFile("mapdata").size.ToString());
+        currentMapData = MapFactory.Instance.CreatMapDataByJsonFile("mapdata");
+        gridMap.Bind(currentMapData);
     }
+
 }

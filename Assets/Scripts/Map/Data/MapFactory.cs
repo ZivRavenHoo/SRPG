@@ -25,7 +25,7 @@ public class MapFactory
     }
 
     public GridMapData CreatMapDataByJsonFile(string mapName) {
-        string path = FileOperation.GetMapDataPath("mapdata");
+        string path = FileOperation.GetMapDataPath(mapName);
         return FileOperation.JsonFileToObject<GridMapData>(path);
     }
 
