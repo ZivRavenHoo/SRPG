@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using ImpulseUtility;
 
 public class BattleManager : MonoBehaviour
 {
+    public static Transform gridEffect;
+
     private GridMapRenderer gridMap;
     private GridMapData currentMapData;
     private Transform combatantRoot;
@@ -18,6 +18,7 @@ public class BattleManager : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         gridMap = GetComponentInChildren<GridMapRenderer>();
         combatantRoot = transform.Find("CombatantRoot");
+        gridEffect = transform.Find("GridEffect");
         combatantPrefab = combatantRoot.Find("CombatantPrefab").GetComponent<CombatantRenderer>();
 
         CreatBattle();
