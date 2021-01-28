@@ -29,6 +29,8 @@ public class GridMapRenderer : MonoBehaviour
 
     public void Bind(GridMapData gridMapData)
     {
+        if (currentMapData == gridMapData)
+            return;
         currentMapData = gridMapData;
         LoadGridUnits();
     }

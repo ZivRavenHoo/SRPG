@@ -2,16 +2,26 @@
 using ImpulseUtility;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 [RequireComponent(typeof(Image))]
-public class CombatantRenderer : MonoBehaviour
+public class CombatantRenderer : MonoBehaviour, IPointerDownHandler
 {
     private CombatantData data;
+    public CombatantData Data => data;
 
     public void Bind(CombatantData data)
     {
         this.data = data;
         Refresh();
+    }
+
+
+    public event Action<CombatantRenderer> PointerDown;
+
+    public void OnPointerDown(PointerEventData data)
+    {
+        PointerDown(this);
     }
 
     private void Refresh()

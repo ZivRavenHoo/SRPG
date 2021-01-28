@@ -27,11 +27,6 @@ public class Bar : MonoBehaviour
         Percent = 1f;
     }
 
-    private void Update()
-    {
-        Percent -= Time.deltaTime/10;
-    }
-
     private void Refresh()
     {
         Vector3 scale = fill.localScale;

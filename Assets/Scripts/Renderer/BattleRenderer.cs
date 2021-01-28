@@ -8,6 +8,7 @@ public class BattleRenderer : MonoBehaviour
     public static Transform gridEffect;
     private Transform combatantRoot;
     private CombatantRenderer combatantPrefab;
+    [SerializeField] CombatantPanel combatantPanel;
 
     private BattleData battleData;
 
@@ -26,12 +27,18 @@ public class BattleRenderer : MonoBehaviour
 
     public void Bind(BattleData data)
     {
+        if (battleData == data)
+            return;
         battleData = data;
         gridMap.Bind(battleData.mapData);
         foreach(var d in battleData.usTeam)
         {
             CombatantRenderer combatant = CreatCombatant();
             combatant.Bind(d);
+
+            combatant.PointerDown += RefreshGridEffect;
+            combatant.PointerDown += SetComtatantPanel;
+
             usTeam.Add(combatant);
         }
 
@@ -47,7 +54,7 @@ public class BattleRenderer : MonoBehaviour
 
     private void AdaptRect()
     {
-        transform.localScale *= GetAdaptRectNeedScale();
+        transform.localScale = Vector3.one * GetAdaptRectNeedScale();
     }
 
     private float GetAdaptRectNeedScale()
@@ -55,5 +62,16 @@ public class BattleRenderer : MonoBehaviour
         float scale = RendererUtility.GetAdaptScreenNeedScale(GetComponent<RectTransform>().rect, gridMap.currentMapData.size);
         scale /= GameConstant.GridUnitSideLength;
         return scale;
+    }
+
+    private void RefreshGridEffect(CombatantRenderer grid)
+    {
+        gridEffect.position = grid.transform.position;
+        gridEffect.gameObject.SetActive(true);
+    }
+
+    private void SetComtatantPanel(CombatantRenderer combatant)
+    {
+        combatantPanel.SelectedCombatant = combatant;
     }
 }
