@@ -2,14 +2,14 @@
 using UnityEngine;
 using ImpulseUtility;
 
-public class MapFactory
+public class MapDataFactory
 {
-    private static MapFactory instance;
-    public static MapFactory Instance{
+    private static MapDataFactory instance;
+    public static MapDataFactory Instance{
         get
         {
             if (instance == null)
-                instance = new MapFactory();
+                instance = new MapDataFactory();
             return instance;
         }
     }

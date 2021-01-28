@@ -276,6 +276,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4838695733210126480}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1515947076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4838695735143721354, guid: 69adb263fd85843eb8e559d7d3997db9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4838695733210126480}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2a71c1a3be37452cafedb94906854b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1738614327
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,6 +301,7 @@ GameObject:
   - component: {fileID: 1738614331}
   - component: {fileID: 1738614330}
   - component: {fileID: 1738614329}
+  - component: {fileID: 1738614332}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -380,6 +393,31 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1738614332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738614327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e944e5541d5d249378e2ea9452bdaeac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleRenderer: {fileID: 1927394343}
+--- !u!114 &1927394343 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8171314072055514177, guid: 69adb263fd85843eb8e559d7d3997db9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4838695733210126480}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc591e2ba1024ff5b8947e55513f208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4838695733210126480
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -390,7 +428,7 @@ PrefabInstance:
     - target: {fileID: 4838695734373137086, guid: 69adb263fd85843eb8e559d7d3997db9,
         type: 3}
       propertyPath: m_Name
-      value: BattleManager
+      value: BattleRenderer
       objectReference: {fileID: 0}
     - target: {fileID: 4838695734373137087, guid: 69adb263fd85843eb8e559d7d3997db9,
         type: 3}
@@ -497,10 +535,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8381692593138873488, guid: 69adb263fd85843eb8e559d7d3997db9,
+    - target: {fileID: 8171314072055514177, guid: 69adb263fd85843eb8e559d7d3997db9,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: gridMap
+      value: 
+      objectReference: {fileID: 1515947076}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69adb263fd85843eb8e559d7d3997db9, type: 3}

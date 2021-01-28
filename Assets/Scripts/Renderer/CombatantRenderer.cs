@@ -7,34 +7,20 @@ using UnityEngine.EventSystems;
 public class CombatantRenderer : MonoBehaviour
 {
     private CombatantData data;
-    private GridPosition position = new GridPosition();
 
-    public CombatantData Data
+    public void Bind(CombatantData data)
     {
-        get { return data; }
-        set
-        {
-            data = value;
-            Refresh();
-        }
-    }
-    public GridPosition Position
-    {
-        get { return position; }
-        set
-        {
-            position = value;
-            RefreshLocalPosition();
-        }
+        this.data = data;
+        Refresh();
     }
 
-    public void Refresh()
+    private void Refresh()
     {
         RefreshLocalPosition();
     }
 
     private void RefreshLocalPosition()
     {
-        transform.localPosition = RendererUtility.GridPositionToLocalPosition(position, GameConstant.GridUnitSideLength);
+        transform.localPosition = RendererUtility.GridPositionToLocalPosition(data.Position, GameConstant.GridUnitSideLength);
     }
 }

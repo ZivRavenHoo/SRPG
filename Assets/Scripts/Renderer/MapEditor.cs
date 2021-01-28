@@ -33,7 +33,7 @@ public class MapEditor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         AddTogglesListener();
         saveButton.onClick.AddListener(SaveMap);
 
-        currentMapData = MapFactory.Instance.CreatGridMapData(size);
+        currentMapData = MapDataFactory.Instance.CreatGridMapData(size);
         gridMap.Bind(currentMapData);
     }
 

@@ -26,8 +26,8 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDow
 
     public void OnPointerDown(PointerEventData data)
     {
-        BattleManager.gridEffect.position = transform.position;
-        BattleManager.gridEffect.gameObject.SetActive(true);
+        BattleRenderer.gridEffect.position = transform.position;
+        BattleRenderer.gridEffect.gameObject.SetActive(true);
     }
 
     public void OnPointerEnter (PointerEventData data)
