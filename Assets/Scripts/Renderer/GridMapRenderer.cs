@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class GridMapRenderer : MonoBehaviour
 {
-
+    public Transform gridEffect;
     private GridUnitRenderer gridUnitPrefab;
     private Transform gridUnitRoot;
 
@@ -57,6 +57,7 @@ public class GridMapRenderer : MonoBehaviour
         gridUnit.GridUnitData = Data.GetGridUnitData(position);
         gridUnit.name = string.Format("GridUnit_{0}", position.ToString());
         gridUnit.gameObject.SetActive(true);
+        gridUnit.PointerDown += RefreshGridEffect;
         return gridUnit;
     }
 
@@ -95,5 +96,11 @@ public class GridMapRenderer : MonoBehaviour
     private GridUnitRenderer GetGridUnit(GridPosition position)
     {
         return gridUnitRenderers[position.row, position.column];
+    }
+
+    private void RefreshGridEffect(GridUnitRenderer gridUnit)
+    {
+        gridEffect.position = gridUnit.transform.position;
+        gridEffect.gameObject.SetActive(true);
     }
 }

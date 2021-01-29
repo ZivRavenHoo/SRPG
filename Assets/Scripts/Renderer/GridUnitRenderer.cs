@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
 using ImpulseUtility;
-using UnityEngine.UI;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
 public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
@@ -24,10 +25,11 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDow
         image = GetComponent<Image>();
     }
 
+
+    public event Action<GridUnitRenderer> PointerDown;
     public void OnPointerDown(PointerEventData data)
     {
-        BattleRenderer.gridEffect.position = transform.position;
-        BattleRenderer.gridEffect.gameObject.SetActive(true);
+        PointerDown(this);
     }
 
     public void OnPointerEnter (PointerEventData data)

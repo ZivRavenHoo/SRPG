@@ -5,7 +5,7 @@ using ImpulseUtility;
 [RequireComponent(typeof(RectTransform))]
 public class BattleRenderer : MonoBehaviour
 {
-    public static Transform gridEffect;
+    private Transform gridEffect;
     private Transform combatantRoot;
     private CombatantRenderer combatantPrefab;
     [SerializeField] CombatantPanel combatantPanel;

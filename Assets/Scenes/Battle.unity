@@ -413,6 +413,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4838695733210126480}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &1716955546 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8381692593138873495, guid: 69adb263fd85843eb8e559d7d3997db9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4838695733210126480}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1738614327
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,6 +667,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4838695735143721354, guid: 69adb263fd85843eb8e559d7d3997db9,
+        type: 3}
+      propertyPath: gridEffect
+      value: 
+      objectReference: {fileID: 1716955546}
     - target: {fileID: 8171314072055514177, guid: 69adb263fd85843eb8e559d7d3997db9,
         type: 3}
       propertyPath: combatantPanel
