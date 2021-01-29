@@ -19,4 +19,14 @@ public class BattleManager : MonoBehaviour
             battleRenderer.Bind(battleData);//注意不能在Start调用，因为BattleRenderer还没获取GridMap
         }
     }
+
+    private CombatantData SelectedCombatant
+    {
+        get
+        {
+            if (battleRenderer == null || battleRenderer.SelectedCombatant == null)
+                return null;
+            return battleRenderer.SelectedCombatant.Data;
+        }
+    }
 }

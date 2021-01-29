@@ -16,6 +16,20 @@ public class BattleRenderer : MonoBehaviour
     private List<CombatantRenderer> usTeam = new List<CombatantRenderer>();
     private List<CombatantRenderer> enemyTeam = new List<CombatantRenderer>();
 
+    private CombatantRenderer selectedCombatant;
+    public CombatantRenderer SelectedCombatant
+    {
+        get => selectedCombatant;
+        set
+        {
+            if (selectedCombatant == value)
+                return;
+            selectedCombatant = value;
+            RefreshComtatantPanel();
+        }
+    }
+
+
     private void Start()
     {
         gridEffect = transform.Find("GridEffect");
@@ -37,7 +51,7 @@ public class BattleRenderer : MonoBehaviour
             combatant.Bind(d);
 
             combatant.PointerDown += RefreshGridEffect;
-            combatant.PointerDown += SetComtatantPanel;
+            combatant.PointerDown += RefreshSelectedCombatant;
 
             usTeam.Add(combatant);
         }
@@ -59,7 +73,7 @@ public class BattleRenderer : MonoBehaviour
 
     private float GetAdaptRectNeedScale()
     {
-        float scale = RendererUtility.GetAdaptScreenNeedScale(GetComponent<RectTransform>().rect, gridMap.currentMapData.size);
+        float scale = RendererUtility.GetAdaptScreenNeedScale(GetComponent<RectTransform>().rect, gridMap.Data.size);
         scale /= GameConstant.GridUnitSideLength;
         return scale;
     }
@@ -70,8 +84,16 @@ public class BattleRenderer : MonoBehaviour
         gridEffect.gameObject.SetActive(true);
     }
 
-    private void SetComtatantPanel(CombatantRenderer combatant)
+    private void RefreshSelectedCombatant(CombatantRenderer combatant)
     {
-        combatantPanel.SelectedCombatant = combatant;
+        SelectedCombatant = combatant;
+        gridMap.ShowCanMoveTo(SelectedCombatant.GridPosition, SelectedCombatant.Data.Protery.MOV);
+    }
+
+    private void RefreshComtatantPanel()
+    {
+        if (combatantPanel == null)
+            return;
+        combatantPanel.Combatant = SelectedCombatant;
     }
 }

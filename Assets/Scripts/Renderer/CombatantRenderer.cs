@@ -2,6 +2,7 @@
 using ImpulseUtility;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 using System;
 
 [RequireComponent(typeof(Image))]
@@ -9,6 +10,8 @@ public class CombatantRenderer : MonoBehaviour, IPointerDownHandler
 {
     private CombatantData data;
     public CombatantData Data => data;
+
+    public GridPosition GridPosition => data.Position;
 
     public void Bind(CombatantData data)
     {

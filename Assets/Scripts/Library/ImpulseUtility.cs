@@ -26,7 +26,7 @@ namespace ImpulseUtility
         public bool IsGridPositionInSize(GridPosition position)
         {
             int row = position.row, column = position.column;
-            if (row < 0 || row > height || column < 0 || column > width)
+            if (row < 0 || row >= height || column < 0 || column >= width)
                 return false;
             return true;
         }

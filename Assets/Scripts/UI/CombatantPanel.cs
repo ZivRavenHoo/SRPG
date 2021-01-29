@@ -6,15 +6,15 @@ public class CombatantPanel : MonoBehaviour
     private ImageBox combatantImage;
     private Bar HPBar;
 
-    private CombatantRenderer selectedCombatant;
-    public CombatantRenderer SelectedCombatant
+    private CombatantRenderer combatant;
+    public CombatantRenderer Combatant
     {
-        get => selectedCombatant;
+        get => combatant;
         set
         {
-            if (selectedCombatant == value)
+            if (combatant == value)
                 return;
-            selectedCombatant = value;
+            combatant = value;
             Refresh();
         }
     }
@@ -27,7 +27,7 @@ public class CombatantPanel : MonoBehaviour
 
     private void Refresh()
     {
-        combatantImage.Image.sprite = selectedCombatant.GetComponent<Image>().sprite;
-        HPBar.Percent = selectedCombatant.Data.Protery.MaxHp;
+        combatantImage.Image.sprite = combatant.GetComponent<Image>().sprite;
+        HPBar.Percent = combatant.Data.Protery.MaxHp;
     }
 }

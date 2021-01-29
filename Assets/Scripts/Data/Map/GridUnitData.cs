@@ -5,7 +5,8 @@ public enum GridType
     Normal,
     EnemyBirth,
     UsBirth,
-    Obstacle
+    Obstacle,
+    CanMove
 }
 
 public class GridUnitData

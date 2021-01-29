@@ -3,7 +3,7 @@
 public class CombatantData
 {
     private bool isEnemy = false;
-    private GridPosition position = new GridPosition();
+    private GridPosition position = new GridPosition(5,5);
     private CombatantProtery protery = new CombatantProtery();
 
     public bool IsEnemy => isEnemy;
