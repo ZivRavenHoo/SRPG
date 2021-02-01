@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ImpulseUtility;
+using System;
 
 public class BattleData
 {
@@ -25,7 +26,17 @@ public class BattleDataFactory
     {
         BattleData data = new BattleData();
         data.mapData = MapDataFactory.Instance.CreatMapDataByJsonFile("mapdata");
-        data.usTeam.Add(new CombatantData());
+        Random random = new Random();
+        int index = random.Next(data.mapData.usBirthPosition.Count);
+        GridPosition position = data.mapData.usBirthPosition[index];
+        data.usTeam.Add(CreatCombatant(position));
+        return data;
+    }
+
+    private CombatantData CreatCombatant(GridPosition position)
+    {
+        CombatantData data = new CombatantData();
+        data.Position = position;
         return data;
     }
 }

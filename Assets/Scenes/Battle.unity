@@ -534,7 +534,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1738614327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e944e5541d5d249378e2ea9452bdaeac, type: 3}
+  m_Script: {fileID: 11500000, guid: 91e0e4d4fd1cd488ab2b7c26ec949fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   battleRenderer: {fileID: 1927394343}

@@ -5,6 +5,8 @@ public class GridMapData
 {
     public Size size;
     public GridUnitData[,] gridUnitDatas;
+    public List<GridPosition> enemyBirthPosition;
+    public List<GridPosition> usBirthPosition;
 
     public GridUnitData GetGridUnitData(GridPosition position)
     {

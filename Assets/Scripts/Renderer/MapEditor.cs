@@ -13,13 +13,13 @@ public enum EditorMode
     PushUs
 }
 
-public class MapEditor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class MapEditor : MonoBehaviour
 {
     private GridMapRenderer gridMap;
     private Toggle[] toggles;
     private Button saveButton;
 
-    public static EditorMode EditorMode = EditorMode.PushObstacle;
+    private EditorMode EditorMode = EditorMode.None;
 
     private Size size = new Size(16, 9);
     GridMapData currentMapData;
@@ -35,6 +35,9 @@ public class MapEditor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         currentMapData = MapDataFactory.Instance.CreatGridMapData(size);
         gridMap.Bind(currentMapData);
+        gridMap.PointerEnterGridUnit += OnPointerEnterGridUnit;
+
+        AdaptRect();
     }
 
     private void AddTogglesListener()
@@ -55,21 +58,35 @@ public class MapEditor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
     }
 
-    public static bool isPress = false;
-    public void OnPointerDown(PointerEventData data)
-    {
-        isPress = true;
-    }
-
-    public void OnPointerUp(PointerEventData data)
-    {
-        isPress = false;
-    }
-
     private void SaveMap()
     {
         string path = FileOperation.GetMapDataPath("mapdata");
         FileOperation.ObjectToJsonFile(path, currentMapData);
         Debug.Log("地图保存成功!");
+    }
+
+    private void AdaptRect()
+    {
+        gridMap.transform.localScale = Vector3.one * GetAdaptRectNeedScale();
+    }
+
+    private float GetAdaptRectNeedScale()
+    {
+        float scale = RendererUtility.GetAdaptScreenNeedScale(gridMap.GetComponent<RectTransform>().rect, gridMap.Data.size);
+        scale /= GameConstant.GridUnitSideLength;
+        return scale;
+    }
+
+    private void OnPointerEnterGridUnit(GridUnitRenderer gridUnit)
+    {
+        if (EditorMode == EditorMode.None)
+            return;
+        switch (EditorMode)
+        {
+            case EditorMode.PushObstacle: gridUnit.SetType(GridType.Obstacle); break;
+            case EditorMode.PushEnemy: gridUnit.SetType(GridType.EnemyBirth); break;
+            case EditorMode.PushUs: gridUnit.SetType(GridType.UsBirth); gridMap.Data.usBirthPosition.Add(gridUnit.GridPosition); break;
+            case EditorMode.Eraser: gridUnit.SetType(GridType.Normal); gridMap.Data.enemyBirthPosition.Add(gridUnit.GridPosition); break;
+        }
     }
 }

@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a71c1a3be37452cafedb94906854b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridEffect: {fileID: 0}
 --- !u!1 &4838695735211999450
 GameObject:
   m_ObjectHideFlags: 0

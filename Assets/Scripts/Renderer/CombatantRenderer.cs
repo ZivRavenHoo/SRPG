@@ -19,7 +19,6 @@ public class CombatantRenderer : MonoBehaviour, IPointerDownHandler
         Refresh();
     }
 
-
     public event Action<CombatantRenderer> PointerDown;
 
     public void OnPointerDown(PointerEventData data)

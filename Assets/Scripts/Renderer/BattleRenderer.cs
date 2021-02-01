@@ -29,7 +29,6 @@ public class BattleRenderer : MonoBehaviour
         }
     }
 
-
     private void Start()
     {
         gridEffect = transform.Find("GridEffect");
@@ -57,6 +56,7 @@ public class BattleRenderer : MonoBehaviour
         }
 
         AdaptRect();
+        Refresh();
     }
 
     private CombatantRenderer CreatCombatant()
@@ -95,5 +95,10 @@ public class BattleRenderer : MonoBehaviour
         if (combatantPanel == null)
             return;
         combatantPanel.Combatant = SelectedCombatant;
+    }
+
+    public void Refresh()
+    {
+        gridMap.Refresh();
     }
 }

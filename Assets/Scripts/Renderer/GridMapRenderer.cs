@@ -1,6 +1,6 @@
-﻿using ImpulseUtility;
+﻿using System;
+using ImpulseUtility;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class GridMapRenderer : MonoBehaviour
 {
@@ -39,6 +39,7 @@ public class GridMapRenderer : MonoBehaviour
     {
         Size size = Data.size;
         gridUnitRenderers = new GridUnitRenderer[size.height, size.width];
+
         GridPosition position = new GridPosition();
         for(int row = 0; row < size.height; ++row)
         {
@@ -51,24 +52,30 @@ public class GridMapRenderer : MonoBehaviour
         }
     }
 
+    public event Action<GridUnitRenderer> PointerEnterGridUnit;
+
     private GridUnitRenderer CreatGridUnitRenderer(GridPosition position)
     {
         GridUnitRenderer gridUnit = Instantiate(gridUnitPrefab, gridUnitRoot);
-        gridUnit.GridUnitData = Data.GetGridUnitData(position);
+        gridUnit.Bind(Data.GetGridUnitData(position));
         gridUnit.name = string.Format("GridUnit_{0}", position.ToString());
         gridUnit.gameObject.SetActive(true);
         gridUnit.PointerDown += RefreshGridEffect;
+        gridUnit.PointerEnter += OnPointerEnter;
         return gridUnit;
     }
 
-    private GridUnitRenderer GetGridUnitRenderer(GridPosition position)
+    private void OnPointerEnter(GridUnitRenderer gridUnit)
     {
-        return gridUnitRenderers[position.row, position.column];
+        if (PointerEnterGridUnit == null)
+            return;
+        PointerEnterGridUnit(gridUnit);
     }
 
     public void ShowCanMoveTo(GridPosition position, int mov)
     {
         GridPosition tempPosition = new GridPosition();
+        SetGridType(position, GridType.CanMove);
         for (int i = 1; i <= mov; ++i)
         {
             int x = -i, y = 0;
@@ -100,7 +107,29 @@ public class GridMapRenderer : MonoBehaviour
 
     private void RefreshGridEffect(GridUnitRenderer gridUnit)
     {
+        if (gridEffect == null)
+            return;
         gridEffect.position = gridUnit.transform.position;
         gridEffect.gameObject.SetActive(true);
+    }
+
+    private GridUnitRenderer GetGridUnitRenderer(GridPosition position)
+    {
+        return gridUnitRenderers[position.row, position.column];
+    }
+
+    public void Refresh()
+    {
+        Size size = Data.size;
+        GridPosition position = new GridPosition();
+        for (int row = 0; row < size.height; ++row)
+        {
+            for (int column = 0; column < size.width; ++column)
+            {
+                position.row = row;
+                position.column = column;
+                gridUnitRenderers[row, column].Refresh();
+            }
+        }
     }
 }

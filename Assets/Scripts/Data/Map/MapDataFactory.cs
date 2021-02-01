@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using ImpulseUtility;
+using System.Collections.Generic;
 
 public class MapDataFactory
 {
@@ -19,7 +20,9 @@ public class MapDataFactory
         GridMapData data = new GridMapData
         {
             size = size,
-            gridUnitDatas = CreatGridUnitDatas(size)
+            gridUnitDatas = CreatGridUnitDatas(size),
+            enemyBirthPosition = new List<GridPosition>(),
+            usBirthPosition = new List<GridPosition>() 
         };
         return data;
     }

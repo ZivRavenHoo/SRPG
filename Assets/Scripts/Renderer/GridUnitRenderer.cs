@@ -10,23 +10,23 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDow
     private GridUnitData data;
     private Image image;
 
-    public GridUnitData GridUnitData
+    public GridPosition GridPosition
     {
-        get { return data; }
-        set
-        {
-            data = value;
-            Refresh();
-        }
+        get => data.position;
     }
 
-    private void Start()
+    public void Bind(GridUnitData data)
+    {
+        this.data = data;
+        Refresh();
+    }
+
+    private void Awake()
     {
         image = GetComponent<Image>();
     }
 
-
-    public event Action<GridUnitRenderer> PointerDown;
+    public event Action<GridUnitRenderer> PointerDown,PointerEnter;
     public void OnPointerDown(PointerEventData data)
     {
         PointerDown(this);
@@ -34,15 +34,7 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDow
 
     public void OnPointerEnter (PointerEventData data)
     {
-        if (MapEditor.isPress == false || MapEditor.EditorMode == EditorMode.None)
-            return;
-        switch (MapEditor.EditorMode)
-        {
-            case EditorMode.PushObstacle : SetType(GridType.Obstacle); break;
-            case EditorMode.PushEnemy :SetType(GridType.EnemyBirth);break;
-            case EditorMode.PushUs :SetType(GridType.UsBirth);break;
-            case EditorMode.Eraser : SetType(GridType.Normal); break;
-        }
+        PointerEnter(this);
     }
 
     public void Refresh()
