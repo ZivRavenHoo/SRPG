@@ -15,7 +15,7 @@ namespace SRPG
     {
         internal GridPosition position;
         internal GridType gridType = GridType.Normal;
-        internal bool canMove = true;
+        private bool canMove = true;
 
         public GridPosition Position
         {

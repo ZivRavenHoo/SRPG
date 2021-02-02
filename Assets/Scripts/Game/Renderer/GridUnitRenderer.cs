@@ -10,6 +10,7 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDow
 {
     private GridUnitData data;
     private Image image;
+    [SerializeField] private GameObject streakAnimation;
 
     public GridPosition GridPosition => data.Position;
 
@@ -68,5 +69,12 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDow
             return;
         data.SetGridType(type);
         RefreshGridType();
+    }
+
+    public void ShowStreakAnimation()
+    {
+        if (!data.CanMove)
+            return;
+        streakAnimation.SetActive(true);
     }
 }

@@ -1,10 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
 using ImpulseUtility;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using System.Collections.Generic;
-using System;
 using SRPG;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
 public class CombatantRenderer : MonoBehaviour, IPointerDownHandler
