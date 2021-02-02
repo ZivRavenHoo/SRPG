@@ -7,31 +7,20 @@ namespace SRPG
         Normal,
         EnemyBirth,
         UsBirth,
-        Obstacle,
-        CanMove
+        Obstacle
     }
 
     public class GridUnitData
     {
-        internal GridPosition position;
-        internal GridType gridType = GridType.Normal;
+        public GridPosition Position;
+        public GridType GridType = GridType.Normal;
         private bool canMove = true;
 
-        public GridPosition Position
-        {
-            get => position;
-            set => position = value;
-        }
-        public GridType GridType
-        {
-            get => gridType;
-            set => gridType = value;
-        }
         public bool CanMove
         {
             get
             {
-                if (gridType == GridType.Obstacle)
+                if (GridType == GridType.Obstacle)
                     return false;
                 return canMove;
             }
@@ -39,7 +28,7 @@ namespace SRPG
 
         public void SetGridType(GridType type)
         {
-            gridType = type;
+            GridType = type;
         }
     }
 }

@@ -23,7 +23,7 @@ public class MapDataFactory
     {
         GridUnitData data = new GridUnitData
         {
-            position = pos
+            Position = pos
         };
         return data;
     }

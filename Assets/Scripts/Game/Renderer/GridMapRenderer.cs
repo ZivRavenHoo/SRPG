@@ -77,7 +77,7 @@ public class GridMapRenderer : MonoBehaviour
     public void ShowCanMoveTo(GridPosition position, int mov)
     {
         GridPosition tempPosition = new GridPosition();
-        ShowEffect(position, GridType.CanMove);
+        ShowEffect(position);
         for (int i = 1; i <= mov; ++i)
         {
             int x = -i, y = 0;
@@ -87,7 +87,7 @@ public class GridMapRenderer : MonoBehaviour
                 {
                     tempPosition.column = position.column + x;
                     tempPosition.row = position.row + y;
-                    ShowEffect(tempPosition, GridType.CanMove);
+                    ShowEffect(tempPosition);
                     x += GameConstant.direction[k, 0];
                     y += GameConstant.direction[k, 1];
                 }
@@ -95,7 +95,7 @@ public class GridMapRenderer : MonoBehaviour
         }
     }
 
-    private void ShowEffect(GridPosition position, GridType type)
+    private void ShowEffect(GridPosition position)
     {
         GridUnitRenderer gridUnit = GetGridUnit(position);
         if (gridUnit == null)
