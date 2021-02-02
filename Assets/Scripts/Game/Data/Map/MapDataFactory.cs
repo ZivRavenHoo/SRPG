@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using SRPG;
 using ImpulseUtility;
 using System.Collections.Generic;
 
@@ -15,18 +14,6 @@ public class MapDataFactory
         }
     }
 
-    public GridMapData CreatGridMapData(Size size)
-    {
-        GridMapData data = new GridMapData
-        {
-            size = size,
-            gridUnitDatas = CreatGridUnitDatas(size),
-            enemyBirthPosition = new List<GridPosition>(),
-            usBirthPosition = new List<GridPosition>() 
-        };
-        return data;
-    }
-
     public GridMapData CreatMapDataByJsonFile(string mapName) {
         string path = FileOperation.GetMapDataPath(mapName);
         return FileOperation.JsonFileToObject<GridMapData>(path);
@@ -36,8 +23,7 @@ public class MapDataFactory
     {
         GridUnitData data = new GridUnitData
         {
-            position = pos,
-            gridType = GridType.Normal
+            position = pos
         };
         return data;
     }
@@ -49,9 +35,21 @@ public class MapDataFactory
         {
             for (int column = 0; column < size.width; ++column)
             {
-                gridUnitDatas[row, column] = CreatGridUnitData(new GridPosition(row, column));
+                gridUnitDatas[row, column] = Instance.CreatGridUnitData(new GridPosition(row, column));
             }
         }
         return gridUnitDatas;
+    }
+
+    public GridMapData CreatGridMapData(Size size)
+    {
+        GridMapData data = new GridMapData
+        {
+            Size = size,
+            GridUnitDatas = Instance.CreatGridUnitDatas(size),
+            EnemyBirthPosition = new List<GridPosition>(),
+            UsBirthPosition = new List<GridPosition>(),
+        };
+        return data;
     }
 }

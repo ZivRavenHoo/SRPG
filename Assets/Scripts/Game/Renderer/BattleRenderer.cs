@@ -1,16 +1,17 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ImpulseUtility;
+using UnityEngine;
+using SRPG;
 
 [RequireComponent(typeof(RectTransform))]
 public class BattleRenderer : MonoBehaviour
 {
+    private BattleData battleData;
+
     private Transform gridEffect;
     private Transform combatantRoot;
     private CombatantRenderer combatantPrefab;
-    [SerializeField] CombatantPanel combatantPanel;
-
-    private BattleData battleData;
+    [SerializeField] private CombatantPanel combatantPanel;
 
     private GridMapRenderer gridMap;
     private List<CombatantRenderer> usTeam = new List<CombatantRenderer>();
@@ -43,18 +44,17 @@ public class BattleRenderer : MonoBehaviour
         if (battleData == data)
             return;
         battleData = data;
-        gridMap.Bind(battleData.mapData);
-        foreach(var d in battleData.usTeam)
+        gridMap.Bind(battleData.MapData);
+        foreach(var usData in battleData.UsTeam)
         {
             CombatantRenderer combatant = CreatCombatant();
-            combatant.Bind(d);
+            combatant.Bind(usData);
 
             combatant.PointerDown += RefreshGridEffect;
             combatant.PointerDown += RefreshSelectedCombatant;
 
             usTeam.Add(combatant);
         }
-
         AdaptRect();
         Refresh();
     }
@@ -73,7 +73,7 @@ public class BattleRenderer : MonoBehaviour
 
     private float GetAdaptRectNeedScale()
     {
-        float scale = RendererUtility.GetAdaptScreenNeedScale(GetComponent<RectTransform>().rect, gridMap.Data.size);
+        float scale = RendererUtility.GetAdaptScreenNeedScale(GetComponent<RectTransform>().rect, gridMap.Data.Size);
         scale /= GameConstant.GridUnitSideLength;
         return scale;
     }

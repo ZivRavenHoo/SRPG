@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using System;
+using SRPG;
 
 [RequireComponent(typeof(Image))]
 public class CombatantRenderer : MonoBehaviour, IPointerDownHandler

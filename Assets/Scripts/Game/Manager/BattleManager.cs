@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using ImpulseUtility;
+using SRPG;
 
 public class BattleManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
-        battleData = BattleDataFactory.Instance.GetBattleData(); //要在Start或者Awake调用，不然会报错
+        battleData = BattleData.GetBattleData(); //要在Start或者Awake调用，不然会报错
     }
 
     private void OnGUI()

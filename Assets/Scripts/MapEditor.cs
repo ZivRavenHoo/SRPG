@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+﻿using ImpulseUtility;
 using UnityEngine;
-using ImpulseUtility;
+using UnityEngine.UI;
+using SRPG;
 
 public enum EditorMode
 {
@@ -72,7 +71,7 @@ public class MapEditor : MonoBehaviour
 
     private float GetAdaptRectNeedScale()
     {
-        float scale = RendererUtility.GetAdaptScreenNeedScale(gridMap.GetComponent<RectTransform>().rect, gridMap.Data.size);
+        float scale = RendererUtility.GetAdaptScreenNeedScale(gridMap.GetComponent<RectTransform>().rect, gridMap.Data.Size);
         scale /= GameConstant.GridUnitSideLength;
         return scale;
     }
@@ -85,8 +84,8 @@ public class MapEditor : MonoBehaviour
         {
             case EditorMode.PushObstacle: gridUnit.SetType(GridType.Obstacle); break;
             case EditorMode.PushEnemy: gridUnit.SetType(GridType.EnemyBirth); break;
-            case EditorMode.PushUs: gridUnit.SetType(GridType.UsBirth); gridMap.Data.usBirthPosition.Add(gridUnit.GridPosition); break;
-            case EditorMode.Eraser: gridUnit.SetType(GridType.Normal); gridMap.Data.enemyBirthPosition.Add(gridUnit.GridPosition); break;
+            case EditorMode.PushUs: gridUnit.SetType(GridType.UsBirth); gridMap.Data.UsBirthPosition.Add(gridUnit.GridPosition); break;
+            case EditorMode.Eraser: gridUnit.SetType(GridType.Normal); gridMap.Data.EnemyBirthPosition.Add(gridUnit.GridPosition); break;
         }
     }
 }

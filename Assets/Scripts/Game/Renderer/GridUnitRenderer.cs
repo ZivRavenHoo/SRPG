@@ -3,6 +3,7 @@ using ImpulseUtility;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using SRPG;
 
 [RequireComponent(typeof(Image))]
 public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
@@ -10,10 +11,7 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDow
     private GridUnitData data;
     private Image image;
 
-    public GridPosition GridPosition
-    {
-        get => data.position;
-    }
+    public GridPosition GridPosition => data.Position;
 
     public void Bind(GridUnitData data)
     {
@@ -45,13 +43,13 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDow
 
     private void RefreshLocalPosition()
     {
-        transform.localPosition = RendererUtility.GridPositionToLocalPosition(data.position, GameConstant.GridUnitSideLength);
+        transform.localPosition = RendererUtility.GridPositionToLocalPosition(data.Position, GameConstant.GridUnitSideLength);
     }
 
     private void RefreshGridType()
     {
         Color color = Color.white;
-        switch (data.gridType)
+        switch (data.GridType)
         {
             case GridType.Normal : color = Color.white; break;
             case GridType.EnemyBirth : color = Color.red;break;
@@ -66,9 +64,9 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDow
 
     public void SetType(GridType type)
     {
-        if (data.gridType == type)
+        if (data.GridType == type)
             return;
-        data.gridType = type;
+        data.SetGridType(type);
         RefreshGridType();
     }
 }

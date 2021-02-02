@@ -1,14 +1,16 @@
 ﻿using System;
 using ImpulseUtility;
 using UnityEngine;
+using SRPG;
 
 public class GridMapRenderer : MonoBehaviour
 {
+    public GridMapData Data;
+
     public Transform gridEffect;
     private GridUnitRenderer gridUnitPrefab;
     private Transform gridUnitRoot;
 
-    public GridMapData Data;
     private GridUnitRenderer[,] gridUnitRenderers;
 
     public Size MapSize
@@ -17,7 +19,7 @@ public class GridMapRenderer : MonoBehaviour
         {
             if (Data == null)
                 return null;
-            return Data.size;
+            return Data.Size;
         }
     }
 
@@ -37,7 +39,7 @@ public class GridMapRenderer : MonoBehaviour
 
     private void LoadGridUnits()
     {
-        Size size = Data.size;
+        Size size = Data.Size;
         gridUnitRenderers = new GridUnitRenderer[size.height, size.width];
 
         GridPosition position = new GridPosition();
@@ -95,7 +97,7 @@ public class GridMapRenderer : MonoBehaviour
 
     private void SetGridType(GridPosition position, GridType type)
     {
-        if (Data.size.IsGridPositionInSize(position) == false)
+        if (Data.Size.IsGridPositionInSize(position) == false)
             return;
         GetGridUnit(position).SetType(type);
     }
@@ -120,7 +122,7 @@ public class GridMapRenderer : MonoBehaviour
 
     public void Refresh()
     {
-        Size size = Data.size;
+        Size size = Data.Size;
         GridPosition position = new GridPosition();
         for (int row = 0; row < size.height; ++row)
         {
