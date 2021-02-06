@@ -61,7 +61,7 @@ namespace ImpulseUtility
             return string.Format("{0}_{1}", row, column);
         }
 
-        public int GetManhattanDistance(GridPosition target)
+        public int Distance(GridPosition target)
         {
             return Mathf.Abs(target.row - row) + Mathf.Abs(target.column - column);
         }

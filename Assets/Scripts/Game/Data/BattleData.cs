@@ -6,9 +6,9 @@ namespace SRPG
 {
     public class BattleData
     {
-        internal GridMapData mapData;
-        internal List<CombatantData> usTeam = new List<CombatantData>();
-        internal List<CombatantData> enemyTeam = new List<CombatantData>();
+        private GridMapData mapData;
+        private List<CombatantData> usTeam = new List<CombatantData>();
+        private List<CombatantData> enemyTeam = new List<CombatantData>();
 
         #region 属性
         public GridMapData MapData => mapData;

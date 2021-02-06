@@ -4,10 +4,10 @@ namespace SRPG
 {
     public class CombatantData
     {
-        internal bool isEnemy = false;
-        internal GridPosition position = new GridPosition(0, 0);
-        internal CombatantProtery protery = new CombatantProtery();
-        internal string name;
+        private bool isEnemy = false;
+        private GridPosition position = new GridPosition(0, 0);
+        private CombatantProtery protery = new CombatantProtery();
+        private string name;
 
         public bool IsEnemy => isEnemy;
         public GridPosition Position
@@ -27,7 +27,7 @@ namespace SRPG
 
         public bool CanToGridUnit(GridUnitData grid)
         {
-            if (Position.GetManhattanDistance(grid.Position) > Protery.MOV)
+            if (Position.Distance(grid.Position) > Protery.MOV)
                 return false;
             return true;
         }

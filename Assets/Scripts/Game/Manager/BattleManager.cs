@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using ImpulseUtility;
 using SRPG;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager : MonoSingleton<BattleManager>
 {
     private BattleData battleData;
     [SerializeField] private BattleRenderer battleRenderer;
+
+    public BattleData BattleData => battleData;
 
     private void Start()
     {
