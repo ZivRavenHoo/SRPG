@@ -23,6 +23,8 @@ public class CombatantRenderer : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData data)
     {
+        if (PointerDown == null)
+            return;
         PointerDown(this);
     }
 

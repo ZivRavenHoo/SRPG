@@ -24,5 +24,12 @@ namespace SRPG
             data.Position = position;
             return data;
         }
+
+        public bool CanToGridUnit(GridUnitData grid)
+        {
+            if (Position.GetManhattanDistance(grid.Position) > Protery.MOV)
+                return false;
+            return true;
+        }
     }
 }

@@ -35,7 +35,7 @@ namespace ImpulseUtility
             return string.Format("{0}_{1}", width, height);
         }
 
-        public GridPosition GetRangePosition()
+        public GridPosition GetRandomPosition()
         {
             GridPosition position = new GridPosition();
             position.row = Random.Range(0, height - 1);
@@ -59,6 +59,11 @@ namespace ImpulseUtility
         public override string ToString()
         {
             return string.Format("{0}_{1}", row, column);
+        }
+
+        public int GetManhattanDistance(GridPosition target)
+        {
+            return Mathf.Abs(target.row - row) + Mathf.Abs(target.column - column);
         }
     }
 

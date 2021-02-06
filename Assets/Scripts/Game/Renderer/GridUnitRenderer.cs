@@ -13,6 +13,7 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDow
     [SerializeField] private GameObject streakAnimation;
 
     public GridPosition GridPosition => data.Position;
+    public GridUnitData Data => data;
 
     public void Bind(GridUnitData data)
     {
@@ -28,11 +29,15 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDow
     public event Action<GridUnitRenderer> PointerDown,PointerEnter;
     public void OnPointerDown(PointerEventData data)
     {
+        if (PointerDown == null)
+            return;
         PointerDown(this);
     }
 
     public void OnPointerEnter (PointerEventData data)
     {
+        if (PointerEnter == null)
+            return;
         PointerEnter(this);
     }
 
@@ -70,15 +75,10 @@ public class GridUnitRenderer : MonoBehaviour, IPointerEnterHandler, IPointerDow
         RefreshGridType();
     }
 
-    public void ShowStreakAnimation()
+    public void SetStreakAnimation(bool active)
     {
-        if (!data.CanMove)
-            return;
-        streakAnimation.SetActive(true);
-    }
-
-    public void HideStreakAnimation()
-    {
-        streakAnimation.SetActive(false);
+        if (active == true)
+            active = Data.CanMove;
+        streakAnimation.SetActive(active);
     }
 }

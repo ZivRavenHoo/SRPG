@@ -54,7 +54,7 @@ public class GridMapRenderer : MonoBehaviour
         }
     }
 
-    public event Action<GridUnitRenderer> PointerEnterGridUnit;
+    public event Action<GridUnitRenderer> PointerDownGridUnit;
 
     private GridUnitRenderer CreatGridUnitRenderer(GridPosition position)
     {
@@ -62,22 +62,15 @@ public class GridMapRenderer : MonoBehaviour
         gridUnit.Bind(Data.GetGridUnitData(position));
         gridUnit.name = string.Format("GridUnit_{0}", position.ToString());
         gridUnit.gameObject.SetActive(true);
-        gridUnit.PointerDown += RefreshGridEffect;
-        gridUnit.PointerEnter += OnPointerEnter;
+        gridUnit.PointerDown += (GridUnitRenderer grid) => PointerDownGridUnit(grid);
         return gridUnit;
     }
 
-    private void OnPointerEnter(GridUnitRenderer gridUnit)
-    {
-        if (PointerEnterGridUnit == null)
-            return;
-        PointerEnterGridUnit(gridUnit);
-    }
-
-    public void ShowCanMoveTo(GridPosition position, int mov)
+    //算法有问题,需要改成BFS
+    public void SetCanMoveToStreak(GridPosition position, int mov,bool active)
     {
         GridPosition tempPosition = new GridPosition();
-        ShowEffect(position);
+        SetEffectActive(position, active);
         for (int i = 1; i <= mov; ++i)
         {
             int x = -i, y = 0;
@@ -87,7 +80,7 @@ public class GridMapRenderer : MonoBehaviour
                 {
                     tempPosition.column = position.column + x;
                     tempPosition.row = position.row + y;
-                    ShowEffect(tempPosition);
+                    SetEffectActive(tempPosition, active);
                     x += GameConstant.direction[k, 0];
                     y += GameConstant.direction[k, 1];
                 }
@@ -95,12 +88,12 @@ public class GridMapRenderer : MonoBehaviour
         }
     }
 
-    private void ShowEffect(GridPosition position)
+    private void SetEffectActive(GridPosition position,bool active)
     {
         GridUnitRenderer gridUnit = GetGridUnit(position);
         if (gridUnit == null)
             return;
-        gridUnit.ShowStreakAnimation();
+        gridUnit.SetStreakAnimation(active);
     }
 
     private GridUnitRenderer GetGridUnit(GridPosition position)
@@ -108,14 +101,6 @@ public class GridMapRenderer : MonoBehaviour
         if (Data.Size.IsGridPositionInSize(position) == false)
             return null;
         return gridUnitRenderers[position.row, position.column];
-    }
-
-    private void RefreshGridEffect(GridUnitRenderer gridUnit)
-    {
-        if (gridEffect == null)
-            return;
-        gridEffect.position = gridUnit.transform.position;
-        gridEffect.gameObject.SetActive(true);
     }
 
     private GridUnitRenderer GetGridUnitRenderer(GridPosition position)

@@ -45,18 +45,21 @@ public class BattleRenderer : MonoBehaviour
             return;
         battleData = data;
         gridMap.Bind(battleData.MapData);
+        gridMap.PointerDownGridUnit += OnPinterDownGridUnit;
         foreach(var usData in battleData.UsTeam)
         {
             CombatantRenderer combatant = CreatCombatant();
             combatant.Bind(usData);
-
-            combatant.PointerDown += RefreshGridEffect;
-            combatant.PointerDown += RefreshSelectedCombatant;
-
+            combatant.PointerDown += OnPointerDownCombatant;
             usTeam.Add(combatant);
         }
         AdaptRect();
         Refresh();
+    }
+
+    public void Refresh()
+    {
+        gridMap.Refresh();
     }
 
     private CombatantRenderer CreatCombatant()
@@ -66,6 +69,57 @@ public class BattleRenderer : MonoBehaviour
         return combatant;
     }
 
+    #region 回调函数
+    private void OnPointerDownCombatant(CombatantRenderer combatant)
+    {
+        if (SelectedCombatant == combatant)
+            return;
+        SelectedCombatant = combatant;
+        RefreshGridEffect(combatant.transform.position);
+        SetStreak(true);
+    }
+
+    private void OnPinterDownGridUnit(GridUnitRenderer gridUnit)
+    {
+        RefreshGridEffect(gridUnit.transform.position);
+        if (SelectedCombatant != null)
+        {
+            if (SelectedCombatant.Data.CanToGridUnit(gridUnit.Data))
+            {
+                Debug.Log("战斗单位移动到:"+gridUnit.Data.Position);
+            }
+            else
+            {
+                SetStreak(false);
+                SelectedCombatant = null;
+            }
+        }
+        else
+        {
+            Debug.Log(gridUnit.Data.Position);
+        }
+    }
+    #endregion
+
+    private void RefreshGridEffect(Vector3 position)
+    {
+        gridEffect.position = position;
+        gridEffect.gameObject.SetActive(true);
+    }
+
+    private void SetStreak(bool active)
+    {
+        gridMap.SetCanMoveToStreak(SelectedCombatant.GridPosition, SelectedCombatant.Data.Protery.MOV, active);
+    }
+
+    private void RefreshComtatantPanel()
+    {
+        if (combatantPanel == null)
+            return;
+        combatantPanel.Combatant = SelectedCombatant;
+    }
+
+    #region 屏幕适应
     private void AdaptRect()
     {
         transform.localScale = Vector3.one * GetAdaptRectNeedScale();
@@ -77,28 +131,5 @@ public class BattleRenderer : MonoBehaviour
         scale /= GameConstant.GridUnitSideLength;
         return scale;
     }
-
-    private void RefreshGridEffect(CombatantRenderer grid)
-    {
-        gridEffect.position = grid.transform.position;
-        gridEffect.gameObject.SetActive(true);
-    }
-
-    private void RefreshSelectedCombatant(CombatantRenderer combatant)
-    {
-        SelectedCombatant = combatant;
-        gridMap.ShowCanMoveTo(SelectedCombatant.GridPosition, SelectedCombatant.Data.Protery.MOV);
-    }
-
-    private void RefreshComtatantPanel()
-    {
-        if (combatantPanel == null)
-            return;
-        combatantPanel.Combatant = SelectedCombatant;
-    }
-
-    public void Refresh()
-    {
-        gridMap.Refresh();
-    }
+    #endregion
 }

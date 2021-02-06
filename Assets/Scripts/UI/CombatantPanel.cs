@@ -27,6 +27,8 @@ public class CombatantPanel : MonoBehaviour
 
     private void Refresh()
     {
+        if (Combatant == null)
+            return;
         combatantImage.Image.sprite = combatant.GetComponent<Image>().sprite;
         HPBar.Percent = combatant.Data.Protery.MaxHp;
     }

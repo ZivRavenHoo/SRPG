@@ -34,7 +34,7 @@ public class MapEditor : MonoBehaviour
 
         currentMapData = MapDataFactory.Instance.CreatGridMapData(size);
         gridMap.Bind(currentMapData);
-        gridMap.PointerEnterGridUnit += OnPointerEnterGridUnit;
+        gridMap.PointerDownGridUnit += OnPointerEnterGridUnit;
 
         AdaptRect();
     }
