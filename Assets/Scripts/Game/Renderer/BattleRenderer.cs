@@ -85,14 +85,9 @@ public class BattleRenderer : MonoBehaviour
         if (SelectedCombatant != null)
         {
             if (SelectedCombatant.Data.CanToGridUnit(gridUnit.Data))
-            {
-                Debug.Log("战斗单位移动到:"+gridUnit.Data.Position);
-            }
-            else
-            {
-                SetStreak(false);
-                SelectedCombatant = null;
-            }
+                Navigator(gridUnit.Data);
+            SetStreak(false);
+            SelectedCombatant = null;
         }
         else
         {
@@ -117,6 +112,19 @@ public class BattleRenderer : MonoBehaviour
         if (combatantPanel == null)
             return;
         combatantPanel.Combatant = SelectedCombatant;
+    }
+
+    private void Navigator(GridUnitData to)
+    {
+        List<GridUnitData> path, searched;
+        Navigator<GridMapData, GridUnitData>.Instance.Navigate(battleData.MapData,
+            battleData.MapData.GetGridUnitData(SelectedCombatant.GridPosition), to,
+            out path, out searched);
+        for(int i = 0; i < path.Count; ++i)
+        {
+            path[i].SetGridType(GridType.Obstacle);
+        }
+        gridMap.Refresh();
     }
 
     #region 屏幕适应

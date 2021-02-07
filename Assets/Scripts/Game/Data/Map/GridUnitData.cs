@@ -10,9 +10,9 @@ namespace SRPG
         Obstacle
     }
 
-    public class GridUnitData
+    public class GridUnitData : IUnit
     {
-        public GridPosition Position;
+        public GridPosition Position { get; set; }
         public GridType GridType = GridType.Normal;
         private bool canMove = true;
 
@@ -29,6 +29,11 @@ namespace SRPG
         public void SetGridType(GridType type)
         {
             GridType = type;
+        }
+
+        public int Distance(GridPosition position)
+        {
+            return Position.Distance(position);
         }
     }
 }

@@ -4,7 +4,7 @@ using ImpulseUtility;
 
 public class Navigator<Map,Unit> : Singleton<Navigator<Map,Unit>>
     where Map : IMap<Unit>
-    where Unit : GridPosition
+    where Unit : IUnit
 {
     private class NavigationData
     {
@@ -54,7 +54,7 @@ public class Navigator<Map,Unit> : Singleton<Navigator<Map,Unit>>
     }
 
     //建立对象池
-    private void Init()
+    protected override void Init()
     {
         //初始化一定数量的导航数据
         navigationDataPool = new List<NavigationData>(999);
@@ -96,7 +96,7 @@ public class Navigator<Map,Unit> : Singleton<Navigator<Map,Unit>>
     ///<param name="from">起点</param>
     ///<param name="to">终点</param>
     ///<param name="path">路径</param>
-    ///<param name="searched">搜索过但为采用的节点</param>
+    ///<param name="searched">搜索过但未采用的节点</param>
     public bool Navigate(Map mapData, Unit from, Unit to, out List<Unit> path, out List<Unit> searched)
     {
         //输出参数赋初值
@@ -115,14 +115,13 @@ public class Navigator<Map,Unit> : Singleton<Navigator<Map,Unit>>
             return false;
         }
 
-
         //open储存将要探索的节点
         List<NavigationData> open = new List<NavigationData>();
         //close储存已经探索的节点
         List<NavigationData> close = new List<NavigationData>();
 
         //1.把起点加入open
-        open.Add(GetEmptyNavigationData(from, null, 0, from.Distance(to)));
+        open.Add(GetEmptyNavigationData(from, null, 0, from.Distance(to.Position)));
 
         int trytimes = 999;
         while (trytimes-- != 0)
@@ -159,10 +158,10 @@ public class Navigator<Map,Unit> : Singleton<Navigator<Map,Unit>>
             close.Add(nowGrid);
             open.Remove(nowGrid);
 
-            //Debug.Log(nowGrid.thisGrid.row + "|" + nowGrid.thisGrid.column + "      " + nowGrid.G + ',' + nowGrid.H + ',' + nowGrid.F);
+            //Debug.Log(nowGrid.thisGrid.Position + "      " + nowGrid.G + ',' + nowGrid.H + ',' + nowGrid.F);
 
-            //4.获取当前节点的所有可到达节点
-            List<Unit> neighbor = mapData.GetNeighbor(nowGrid.thisGrid);
+            //4.获取当前节点的所有可到达的相邻节点
+            List<Unit> neighbor = mapData.GetNeighbor(nowGrid.thisGrid.Position);
             //对于每个节点
             for (int i = 0; i < neighbor.Count; ++i)
             {
@@ -175,9 +174,8 @@ public class Navigator<Map,Unit> : Singleton<Navigator<Map,Unit>>
                 }
 
                 t = Exits(open, neighbor[i]);
-                //int G = from.Distance(neighbor[i]);
                 int G = nowGrid.G + 1;
-                int H = to.Distance(neighbor[i]);
+                int H = to.Distance(neighbor[i].Position);
                 //4.2 如果该节点不在open中,计算G,H值,设置父节点为当前节点,加入open列表
                 if (t == null)
                 {
@@ -201,7 +199,7 @@ public class Navigator<Map,Unit> : Singleton<Navigator<Map,Unit>>
     {
         for (int i = 0; i < list.Count; ++i)
         {
-            if (list[i].thisGrid.Equals(target))
+            if (Equals(list[i].thisGrid, target))
                 return list[i];
         }
         return null;

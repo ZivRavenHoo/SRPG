@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using ImpulseUtility;
+﻿using System.Collections.Generic;
 
-public interface IMap<Unit>
-    where Unit : GridPosition
+namespace ImpulseUtility
 {
-    List<Unit> GetNeighbor(GridPosition position);
+    public interface IMap<T>
+    where T : IUnit
+    {
+        List<T> GetNeighbor(GridPosition position);
+    }
 }

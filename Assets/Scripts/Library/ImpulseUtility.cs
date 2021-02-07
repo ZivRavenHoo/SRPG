@@ -56,6 +56,12 @@ namespace ImpulseUtility
             this.column = column;
         }
 
+        public GridPosition(GridPosition position)
+        {
+            this.row = position.row;
+            this.column = position.column;
+        }
+
         public override string ToString()
         {
             return string.Format("{0}_{1}", row, column);
