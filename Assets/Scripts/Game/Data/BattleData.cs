@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ImpulseUtility;
+using Impulse;
 using UnityEngine;
 
 namespace SRPG

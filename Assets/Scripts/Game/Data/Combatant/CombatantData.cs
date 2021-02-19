@@ -1,4 +1,4 @@
-﻿using ImpulseUtility;
+﻿using Impulse;
 
 namespace SRPG
 {

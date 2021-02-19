@@ -1,7 +1,8 @@
 ﻿using System;
-using ImpulseUtility;
+using Impulse;
 using UnityEngine;
 using SRPG;
+using System.Collections.Generic;
 
 public class GridMapRenderer : MonoBehaviour
 {
@@ -47,8 +48,8 @@ public class GridMapRenderer : MonoBehaviour
         {
             for(int column = 0; column < size.width; ++column)
             {
-                position.row = row;
-                position.column = column;
+                position.Row = row;
+                position.Column = column;
                 gridUnitRenderers[row, column] = CreatGridUnitRenderer(position);
             }
         }
@@ -66,31 +67,18 @@ public class GridMapRenderer : MonoBehaviour
         return gridUnit;
     }
 
-    //算法有问题,需要改成BFS
     public void SetCanMoveToStreak(GridPosition position, int mov,bool active)
     {
-        GridPosition tempPosition = new GridPosition();
-        SetEffectActive(position, active);
-        for (int i = 1; i <= mov; ++i)
+        List<GridUnitData> grids = Data.GetCanMoveUnitsPosition(Data.GetGridUnitData(position), mov);
+        foreach(var temp in grids)
         {
-            int x = -i, y = 0;
-            for (int k = 0; k < 4; ++k)
-            {
-                for (int j=0; j < i; ++j)
-                {
-                    tempPosition.column = position.column + x;
-                    tempPosition.row = position.row + y;
-                    SetEffectActive(tempPosition, active);
-                    x += GameConstant.direction[k, 0];
-                    y += GameConstant.direction[k, 1];
-                }
-            }
+            SetEffectActive(temp, active);
         }
     }
 
-    private void SetEffectActive(GridPosition position,bool active)
+    private void SetEffectActive(GridUnitData grid,bool active)
     {
-        GridUnitRenderer gridUnit = GetGridUnit(position);
+        GridUnitRenderer gridUnit = GetGridUnit(grid.Position);
         if (gridUnit == null)
             return;
         gridUnit.SetStreakAnimation(active);
@@ -100,12 +88,12 @@ public class GridMapRenderer : MonoBehaviour
     {
         if (Data.Size.IsGridPositionInSize(position) == false)
             return null;
-        return gridUnitRenderers[position.row, position.column];
+        return gridUnitRenderers[position.Row, position.Column];
     }
 
     private GridUnitRenderer GetGridUnitRenderer(GridPosition position)
     {
-        return gridUnitRenderers[position.row, position.column];
+        return gridUnitRenderers[position.Row, position.Column];
     }
 
     public void Refresh()
@@ -116,8 +104,8 @@ public class GridMapRenderer : MonoBehaviour
         {
             for (int column = 0; column < size.width; ++column)
             {
-                position.row = row;
-                position.column = column;
+                position.Row = row;
+                position.Column = column;
                 gridUnitRenderers[row, column].Refresh();
             }
         }

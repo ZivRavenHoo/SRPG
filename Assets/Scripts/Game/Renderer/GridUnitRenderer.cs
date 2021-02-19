@@ -1,5 +1,5 @@
 ﻿using System;
-using ImpulseUtility;
+using Impulse;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

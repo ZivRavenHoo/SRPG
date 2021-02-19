@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using ImpulseUtility;
+using Impulse;
 using SRPG;
 
 public class BattleManager : MonoSingleton<BattleManager>

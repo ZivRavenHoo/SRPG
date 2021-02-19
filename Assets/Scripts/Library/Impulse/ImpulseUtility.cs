@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ImpulseUtility
+namespace Impulse
 {
     public class Size
     {
@@ -24,7 +24,7 @@ namespace ImpulseUtility
 
         public bool IsGridPositionInSize(GridPosition position)
         {
-            int row = position.row, column = position.column;
+            int row = position.Row, column = position.Column;
             if (row < 0 || row >= height || column < 0 || column >= width)
                 return false;
             return true;
@@ -38,38 +38,51 @@ namespace ImpulseUtility
         public GridPosition GetRandomPosition()
         {
             GridPosition position = new GridPosition();
-            position.row = Random.Range(0, height - 1);
-            position.column = Random.Range(0, width - 1);
+            position.Row = Random.Range(0, height - 1);
+            position.Column = Random.Range(0, width - 1);
             return position;
         }
     }
     public class GridPosition
     {
-        public int row = 0;
-        public int column = 0;
+        public Vector2Int position = new Vector2Int();
+        public int Row
+        {
+            get => position.x;
+            set => position.x = value;
+        }
+        public int Column
+        {
+            get => position.y;
+            set => position.y = value;
+        }
 
         public GridPosition() { }
 
         public GridPosition(int row, int column)
         {
-            this.row = row;
-            this.column = column;
+            Row = row;
+            Column = column;
         }
 
-        public GridPosition(GridPosition position)
+        public GridPosition(Vector2Int position)
         {
-            this.row = position.row;
-            this.column = position.column;
+            this.position = position;
+        }
+
+        public GridPosition(GridPosition grid)
+        {
+            this.position = grid.position;
         }
 
         public override string ToString()
         {
-            return string.Format("{0}_{1}", row, column);
+            return string.Format("{0}_{1}", Row, Column);
         }
 
         public int Distance(GridPosition target)
         {
-            return Mathf.Abs(target.row - row) + Mathf.Abs(target.column - column);
+            return Mathf.Abs(target.Row - Row) + Mathf.Abs(target.Column - Column);
         }
     }
 
@@ -109,16 +122,16 @@ namespace ImpulseUtility
         {
             GridPosition position = new GridPosition
             {
-                column = (int)(localPosition.x / side),
-                row = (int)(localPosition.y / side)
+                Column = (int)(localPosition.x / side),
+                Row = (int)(localPosition.y / side)
             };
             return position;
         }
 
         public static Vector2 GridPositionToLocalPosition(GridPosition position, float side)
         {
-            float x = (position.column + 0.5f) * side;
-            float y = (position.row + 0.5f) * side;
+            float x = (position.Column + 0.5f) * side;
+            float y = (position.Row + 0.5f) * side;
             return new Vector2(x, y);
         }
     }

@@ -1,5 +1,5 @@
 ﻿using System;
-using ImpulseUtility;
+using Impulse;
 using SRPG;
 using UnityEngine;
 using UnityEngine.EventSystems;

@@ -1,5 +1,5 @@
 ﻿using SRPG;
-using ImpulseUtility;
+using Impulse;
 using System.Collections.Generic;
 
 public class MapDataFactory

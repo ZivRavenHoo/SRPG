@@ -1,4 +1,4 @@
-﻿using ImpulseUtility;
+﻿using Impulse;
 using UnityEngine;
 using UnityEngine.UI;
 using SRPG;

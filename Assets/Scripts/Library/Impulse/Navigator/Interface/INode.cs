@@ -1,6 +1,6 @@
-﻿namespace ImpulseUtility
+﻿namespace Impulse
 {
-    public interface IUnit
+    public interface INode
     {
         GridPosition Position { get; set; }
         int Distance(GridPosition position);

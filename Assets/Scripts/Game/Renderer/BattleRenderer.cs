@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ImpulseUtility;
+using Impulse;
 using UnityEngine;
 using SRPG;
 
@@ -84,9 +84,9 @@ public class BattleRenderer : MonoBehaviour
         RefreshGridEffect(gridUnit.transform.position);
         if (SelectedCombatant != null)
         {
+            SetStreak(false);
             if (SelectedCombatant.Data.CanToGridUnit(gridUnit.Data))
                 Navigator(gridUnit.Data);
-            SetStreak(false);
             SelectedCombatant = null;
         }
         else

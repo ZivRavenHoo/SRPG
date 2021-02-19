@@ -1,4 +1,4 @@
-﻿using ImpulseUtility;
+﻿using Impulse;
 
 namespace SRPG
 {
@@ -10,7 +10,7 @@ namespace SRPG
         Obstacle
     }
 
-    public class GridUnitData : IUnit
+    public class GridUnitData : INode
     {
         public GridPosition Position { get; set; }
         public GridType GridType = GridType.Normal;
