@@ -8,12 +8,12 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class CombatantRenderer : MonoBehaviour, IPointerDownHandler
 {
-    private CombatantData data;
-    public CombatantData Data => data;
+    private Combatant data;
+    public Combatant Data => data;
 
     public GridPosition GridPosition => data.Position;
 
-    public void Bind(CombatantData data)
+    public void Bind(Combatant data)
     {
         this.data = data;
         Refresh();

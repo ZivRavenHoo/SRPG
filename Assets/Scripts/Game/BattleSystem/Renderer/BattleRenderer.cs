@@ -120,7 +120,7 @@ public class BattleRenderer : MonoBehaviour
         Navigator<GridMapData, GridUnitData>.Instance.Navigate(battleData.MapData,
             battleData.MapData.GetGridUnitData(SelectedCombatant.GridPosition), to,
             out path, out searched);
-        for(int i = 0; i < path.Count; ++i)
+        for(int i = 0; i < path.Count-1; ++i)
         {
             path[i].SetGridType(GridType.Obstacle);
         }

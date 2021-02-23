@@ -2,7 +2,7 @@
 
 namespace SRPG
 {
-    public class CombatantData
+    public class Combatant
     {
         private bool isEnemy = false;
         private GridPosition position = new GridPosition(0, 0);
@@ -18,18 +18,18 @@ namespace SRPG
         public CombatantProtery Protery => protery;
         public string Name => name;
 
-        public static CombatantData CreatCombatant(GridPosition position)
+        public static Combatant CreatCombatant(GridPosition position)
         {
-            CombatantData data = new CombatantData();
+            Combatant data = new Combatant();
             data.Position = position;
             return data;
         }
 
         public bool CanToGridUnit(GridUnitData grid)
         {
-            if (Position.Distance(grid.Position) > Protery.MOV)
-                return false;
-            return true;
+            if (BattleManager.Instance.BattleData.MapData.GetCanMoveUnitsPosition(grid, Protery.MOV).Contains(grid))
+                return true;
+            return false;
         }
     }
 }

@@ -7,13 +7,13 @@ namespace SRPG
     public class BattleData
     {
         private GridMapData mapData;
-        private List<CombatantData> usTeam = new List<CombatantData>();
-        private List<CombatantData> enemyTeam = new List<CombatantData>();
+        private List<Combatant> usTeam = new List<Combatant>();
+        private List<Combatant> enemyTeam = new List<Combatant>();
 
         #region 属性
         public GridMapData MapData => mapData;
-        public List<CombatantData> UsTeam => usTeam;
-        public List<CombatantData> EnemyTeam => enemyTeam;
+        public List<Combatant> UsTeam => usTeam;
+        public List<Combatant> EnemyTeam => enemyTeam;
         #endregion
 
         private BattleData() { }
@@ -27,7 +27,7 @@ namespace SRPG
             Debug.Log(data.mapData.Size);
             int index = Random.Range(0, data.mapData.UsBirthPosition.Count);
             GridPosition position = data.mapData.UsBirthPosition[index];
-            data.usTeam.Add(CombatantData.CreatCombatant(position));
+            data.usTeam.Add(Combatant.CreatCombatant(position));
             return data;
         }
     }
